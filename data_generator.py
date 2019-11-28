@@ -9,8 +9,10 @@ test_dataset_file = "D:\Datasets\TFSpeechRecognition\\testing_list.txt"
 validation_dataset_file = "D:\Datasets\TFSpeechRecognition\\validation_list.txt"
 noises_dataset_files = "D:\Datasets\TFSpeechRecognition\data\_background_noise_\\noises"
 
+
 def get_labels():
     return commands + ["noise"]
+
 
 def get_spectrogram(audio_signals, sample_rate=16000):
     signals = tf.reshape(audio_signals, [1, -1])
@@ -27,6 +29,7 @@ def get_spectrogram(audio_signals, sample_rate=16000):
 def process_audio(audio_path):
     audio_binary = tf.io.read_file(audio_path)
     audio, sample_rate = tf.audio.decode_wav(audio_binary)
+
     spect = get_spectrogram(audio, sample_rate=sample_rate)
     image = tf.image.resize(tf.expand_dims(spect, -1), (118, 128))
     image = tf.math.divide(tf.cast(image, "float32"), 255.)
@@ -37,6 +40,7 @@ def train_generator(labels, batch_size=32):
     with open("train_list.txt", "r") as train_file:
         data_ids = [f.strip() for f in train_file.readlines()]
     return DataGenerator(data_ids, labels, **{'batch_size': batch_size})
+
 
 def eval_generator(labels, batch_size=32):
     with open("test_list.txt", "r") as train_file:
