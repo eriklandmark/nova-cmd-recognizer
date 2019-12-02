@@ -2,6 +2,7 @@ import tensorflow as tf
 import os
 import random
 import numpy as np
+import math
 
 DATASET_PATH = "D:\Datasets\TFSpeechRecognition\data"
 commands = ["up", "down", "left", "right"]
@@ -57,7 +58,7 @@ class DataGenerator(tf.keras.utils.Sequence):
         self.verbose = verbose
 
     def __len__(self):
-        return int(tf.math.floor(len(self.data_ids) / self.batch_size))
+        return int(math.floor(len(self.data_ids) / self.batch_size))
 
     def __getitem__(self, batch_id):
         batch = self.data_ids[batch_id * self.batch_size: (batch_id * self.batch_size) + self.batch_size]

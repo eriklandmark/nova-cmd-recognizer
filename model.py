@@ -21,11 +21,6 @@ def get_model(num_labels):
     model.add(tf.keras.layers.Dropout(0.5))
     model.add(tf.keras.layers.Dense(num_labels, activation="softmax"))
 
-    model.compile(loss=tf.keras.losses.categorical_crossentropy,
-        optimizer=tf.keras.optimizers.SGD(learning_rate=0.01),
-        metrics=['accuracy']
-    )
-
     return model
 
 if __name__ == "__main__":
