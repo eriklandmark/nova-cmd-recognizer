@@ -113,6 +113,7 @@ def generate_dataset(labels, mode="train", use_images=False):
     for i, path in enumerate(data_ids):
         if use_images:
             pre, ext = os.path.splitext(path)
+            pre = pre.replace("\\", "/")
             example = process_audio(os.path.join(IMAGE_DATASET_PATH, pre + ".png"), from_image=True)
         else:
             example = process_audio(os.path.join(DATASET_PATH, path.strip()))
