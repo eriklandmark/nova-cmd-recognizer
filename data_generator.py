@@ -7,7 +7,7 @@ import lib
 import cv2
 
 DATASET_PATH = "D:\Datasets\TFSpeechRecognition\data"
-IMAGE_DATASET_PATH = "D:\Projects\\nova\cmd-recognizer\\train_images"
+IMAGE_DATASET_PATH = "train_images"
 commands = ["up", "down", "left", "right"]
 test_dataset_file = "D:\Datasets\TFSpeechRecognition\\testing_list.txt"
 validation_dataset_file = "D:\Datasets\TFSpeechRecognition\\validation_list.txt"
