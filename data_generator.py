@@ -135,6 +135,7 @@ def generate_inf_dataset():
 
     for i, path in enumerate(data_ids):
         pre, ext = os.path.splitext(path)
+        pre = pre.replace("\\", "/")
         example = process_audio(os.path.join(IMAGE_DATASET_PATH, pre + ".png"), from_image=True)
         dataset.append((np.asarray(example), compute_label(path)))
         lib.progress_bar(i + 1, len(data_ids), prefix="Creating examples",
