@@ -1,7 +1,6 @@
 import tensorflow as tf
 import pyaudio
 import numpy as np
-import time
 import data_generator
 import cv2
 

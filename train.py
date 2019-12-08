@@ -18,11 +18,15 @@ tf.config.experimental.set_memory_growth(physical_devices[0], True)
 print("Loading model")
 labels = data_generator.get_labels()
 model = model.get_model(len(labels))
+model.compile(loss=tf.keras.losses.categorical_crossentropy,
+              optimizer=tf.keras.optimizers.SGD(learning_rate=0.01),
+              metrics=['accuracy']
+              )
 model.summary()
 
 print("Starting Training")
-train_generator = data_generator.train_generator(labels, batch_size=BATCH_SIZE)
-eval_generator = data_generator.eval_generator(labels, batch_size=BATCH_SIZE)
+train_generator = data_generator.train_generator(labels, batch_size=BATCH_SIZE, use_images=True)
+eval_generator = data_generator.eval_generator(labels, batch_size=BATCH_SIZE, use_images=True)
 
 model.fit_generator(train_generator, validation_data=eval_generator, steps_per_epoch=int(TOTAL_EXAMPLES / BATCH_SIZE),
                     validation_steps=16, epochs=EPOCHS, verbose=1, workers=20,
