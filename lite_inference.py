@@ -4,8 +4,13 @@ tf.compat.v1.enable_eager_execution()
 
 import data_generator
 import timeit
+import tflite_runtime.interpreter as tflite
 
-interpreter = tf.lite.Interpreter(model_path="quantized_model/model.tflite")
+model_path = "quantized_model/model.tflite"
+
+#interpreter = tf.lite.Interpreter(model_path)
+interpreter = tflite.Interpreter(model_path,
+                                 experimental_delegates=[tflite.load_delegate('libedgetpu.so.1')])
 interpreter.allocate_tensors()
 
 input_details = interpreter.get_input_details()
