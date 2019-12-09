@@ -1,4 +1,5 @@
 import tensorflow as tf
+import os
 
 tf.compat.v1.enable_eager_execution()
 
@@ -7,9 +8,13 @@ import timeit
 
 model_path = "quantized_model/model.tflite"
 
-#interpreter = tf.lite.Interpreter(model_path)
-interpreter = tf.lite.Interpreter(model_path,
-                                 experimental_delegates=[tf.lite.load_delegate('libedgetpu.so.1')])
+
+if os.name == 'nt':
+    interpreter = tf.lite.Interpreter(model_path)
+else:
+    interpreter = tf.lite.Interpreter(model_path,
+                                        experimental_delegates=[tf.lite.load_delegate('libedgetpu.so.1')])
+
 interpreter.allocate_tensors()
 
 input_details = interpreter.get_input_details()
