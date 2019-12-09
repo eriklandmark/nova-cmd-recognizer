@@ -12,7 +12,8 @@ model_path = "quantized_model/model.tflite"
 if os.name == 'nt':
     interpreter = tf.lite.Interpreter(model_path)
 else:
-    interpreter = tf.lite.Interpreter(model_path,
+    import tflite_runtime as tflite
+    interpreter = tflite.Interpreter(model_path,
                                         experimental_delegates=[tf.lite.load_delegate('libedgetpu.so.1')])
 
 interpreter.allocate_tensors()
